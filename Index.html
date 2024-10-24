@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rule-Based Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color:rgb(104, 96, 96);
+    }
+    .chat-container {
+      width: 50%;
+      margin: auto;
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .chat-box {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .user-input {
+      width: calc(100% - 90px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .send-btn {
+      padding: 10px 20px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      border-radius: 3px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+  <h2 style="text-align: center; color: red;">SIMPLE CHATBOT</h2>
+  <div class="chat-box" id="chatBox" style="border: 1px solid black;">
+    
+  </div>
+  <input type="text" id="userInput" class="user-input" placeholder="Type your message here..." style="margin-top: 10px;">
+  <button class="send-btn" onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+
+  function sendMessage() {
+    const userInput = document.getElementById('userInput').value;
+    if (userInput.trim() === '') return;
+    
+
+    appendMessage('User', userInput);
+
+    
+    const botResponse = getBotResponse(userInput);
+    appendMessage('Chatbot', botResponse);
+
+
+    document.getElementById('userInput').value = '';
+  }
+
+
+  function appendMessage(sender, message) {
+    const chatBox = document.getElementById('chatBox');
+    const messageElement = document.createElement('p');
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  
+  function getBotResponse(userInput) {
+
+    const userMessage = userInput.toLowerCase();
+
+    
+    if (userMessage.includes('hello') || userMessage.includes('hi')) {
+      return 'Hello! How can I assist you today?';
+    } else if (userMessage.includes('how are you')) {
+      return 'I am just a bot, but thanks for asking! How about you?';
+    } else if (userMessage.includes('your name')) {
+      return 'I am a simple chatbot created by Harsh!';
+    } else if (userMessage.includes('bye')) {
+      return 'Goodbye! Have a nice day!';
+    } else {
+      return "I'm sorry, I don't understand that. Can you please rephrase?";
+    }
+  }
+</script>
+
+</body>
+</html>
